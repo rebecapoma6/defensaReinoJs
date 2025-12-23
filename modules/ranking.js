@@ -27,56 +27,92 @@ export function batalla(jugador, enemigo) {
     historialBatallas.push(`--- Turno ${turno} --- `);
 
     vidaEnemigo -= jugador.ataqueTotal;
-    if (vidaEnemigo < 0) vidaEnemigo = 0;
+    if (vidaEnemigo < 0) { vidaEnemigo = 0; }
     historialBatallas.push(`${jugador.nombre} hace ${jugador.ataqueTotal} de daño. Vida del enemigo: ${vidaEnemigo}`);
 
-    if (vidaEnemigo <= 0) break;
+    if (vidaEnemigo <= 0) { break; }
 
-    // Ataca el enemigo -> Aquí va tu adaptación
-    let dañoBaseEnemigo = enemigo.ataque;
+    /**
+     * Ataque del enemigo hacia el jugador
+     */
+    let danioBaseEnemigo = enemigo.ataque;
     let defensaJugador = jugador.defensaTotal;
-    let danioNetoRecibido = dañoBaseEnemigo - defensaJugador;
-    if (danioNetoRecibido < 0) danioNetoRecibido = 0;
+    let danioNetoRecibido = danioBaseEnemigo - defensaJugador;
+
+    /**
+     * si la defensa es mayor que el ataque , el daño seria negativo
+     * entonces , si es menor que cero , sera obligatoriamente a cero
+     */
+    if (danioNetoRecibido < 0) { danioNetoRecibido = 0; }
 
     vidaJugador -= danioNetoRecibido;
-    if (vidaJugador < 0) vidaJugador = 0;
 
-    historialBatallas.push(`${enemigo.nombre} hace ${danioNetoRecibido} de daño. Vida del jugador: ${vidaJugador}`);
+    if (vidaJugador < 0) { vidaJugador = 0; }
+
+    historialBatallas.push(`${enemigo.nombre} hace ${danioNetoRecibido} de daño. Vida del jugador ${jugador.nombre}: ${vidaJugador}`);
 
     turno++;
   }
 
-  let ganador;
+  let jugadorWin = "";
   if (vidaJugador > 0) {
-    ganador = jugador.nombre;
+    jugadorWin = jugador.nombre;
   } else {
-    ganador = enemigo.nombre;
+    jugadorWin = enemigo.nombre;
   }
+
+
+
 
 
   let puntosGanados = 0;
   let dineroGanado = 0;
-  if (ganador === jugador.nombre) {
+
+
+  if (jugadorWin === jugador.nombre) {
     puntosGanados = 100 + enemigo.ataque;
-    if (enemigo.tipo === "jefe")  {
+    if (enemigo.tipo === "jefe") {
       puntosGanados *= enemigo.multiplicador;
+      puntosGanados = Math.floor(puntosGanados); //quitamos los decimales para q el numero sea entero
       dineroGanado = 10;
-    }else{
+    } else {
       dineroGanado = 5;
     }
-  
+    jugador.puntos += puntosGanados;
+    jugador.dinero += dineroGanado;
+
+    jugador.vidaActual = vidaJugador;
   }
-  // Suma los puntos al jugador
-  jugador.puntos += puntosGanados;
 
   return {
     historialBatallas: historialBatallas,
-    ganador: ganador,
-    puntosGanados: puntosGanados, 
+    ganador: jugadorWin,
+    puntosGanados: puntosGanados,
     dineroGanado: dineroGanado
   };
 
 }
+
+export function guardarRakingLocalStore(jugador) {
+  const rankingReino = "aventuraJS"
+  let puntuacionFinal = jugador.puntos + jugador.dinero;
+  let guardarDatosLocal = {
+    nombre: jugador.nombre,
+    puntuacion: puntuacionFinal,
+    monedas: jugador.dinero
+  }
+
+  let rankingGuardado = localStorage.getItem(rankingReino);
+  let listadoRanking = [];
+  if (rankingGuardado !== null) {
+    listadoRanking = JSON.parse(rankingGuardado);
+  }
+  listadoRanking.push(guardarDatosLocal);
+  localStorage.setItem(rankingReino, JSON.stringify(listadoRanking));
+}
+
+
+
 
 
 /**
