@@ -1,16 +1,100 @@
-
 <!DOCTYPE html>
 <html lang='en'>
+
 <head>
     <meta charset='UTF-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='stylesheet' type='text/css' href='style.css'>
-    <script src='script.js' defer></script>
-    <title>defensaReinoJs</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+    <script type="module" src="./main.js" defer></script>
+    <title>DefensaReinoJs</title>
 </head>
+
 <body>
-    <h1>defensaReinoJs</h1>
+    <header>
+        <h1 id="title">Aventura en el reino</h1>
+    </header>
+    <main>
+
+
+        <!-- Escena 1: Estado inicial -->
+        <div id="scene-1" class="scene active">
+            <div id="ocultar">
+                <label for="player-name-input">Introduce tu nombre:</label>
+                <input type="text" id="player-name-input" placeholder="Tu nombre..." />
+                <p>Selecciona un avatar:</p>
+                <div id="avatar-selection">
+                    <img src="image/hombre.jpg" alt="Avatar Hombre" class="avatar selectable"
+                        data-avatar="image/hombre.jpg">
+                    <img src="image/mujer.png" alt="Avatar Mujer" class="avatar selectable"
+                        data-avatar="image/mujer.png">
+                </div>
+                <button id="btn-create-player">Crear jugador</button>
+            </div>
+            <div id="player-stats"></div>
+
+            <button id="btn-to-market">Continuar</button>
+        </div>
+
+        
+        <!-- Escena 2: Mercado -->
+        <div id="scene-2" class="scene">
+            <h2>🏪 Mercado de productos</h2>
+            <div id="market-container"></div>
+            <button id="btn-to-battle">Confirmar compra y continuar ⚔️</button>
+        </div>
+
+        <!-- Escena 3: Estado del jugador -->
+        <div id="scene-3" class="scene">
+            <h2>🧭 Estado del jugador</h2>
+            <br>
+            <div id="player-current"></div>
+            <button id="btn-to-enemies">Ver enemigos 👹</button>
+        </div>
+
+        <!-- Escena 4: Enemigos -->
+        <div id="scene-4" class="scene">
+            <h2>👹 Enemigos del reino</h2>
+            <div id="enemies-container"></div>
+            <button id="btn-to-combat">Iniciar batallas ⚔️</button>
+        </div>
+
+        <!-- Escena 5: Batallas -->
+        <div id="scene-5" class="scene">
+            <h2>⚔️ Batallas en curso</h2>
+            <div id="battle-visual">
+                <div class="battle-player">
+                    <img id="battle-player-img" class="player-img" src="" alt="Jugador">
+                    <p id="battle-player-name"></p>
+                </div>
+
+                <div class="battle-vs">VS</div>
+
+                <div class="battle-enemy">
+                    <img id="battle-enemy-img" class="enemy-img" src="" alt="Enemigo">
+                    <p id="battle-enemy-name"></p>
+                </div>
+            </div>
+
+            <div id="battle-output"></div>
+            <button id="btn-next-battle">Siguiente batalla ➡️</button>
+        </div>
+
+        <!-- Escena 6: Resultado final -->
+        <div id="scene-6" class="scene">
+            <h2>🏁 Resultado final</h2>
+            <div id="final-result"></div>
+            <button id="btn-restart">Reiniciar 🔁</button>
+        </div>
+    </main>
+
+
+
+    <footer>
+        <div id="inventory-container">
+
+        </div>
+    </footer>
 </body>
+
 </html>
-
-
