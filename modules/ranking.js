@@ -7,6 +7,8 @@ import { groupBy } from '../utils/utils.js';
  * agrupa jugadores según su nivel y muestra el ranking final.
  */
 
+
+const rankingReino = "aventuraJS"
 /**
  * Simula una batalla entre un jugador y un enemigo.
  * Si el jugador gana, obtiene puntos según la fuerza del enemigo.
@@ -61,13 +63,8 @@ export function batalla(jugador, enemigo) {
     jugadorWin = enemigo.nombre;
   }
 
-
-
-
-
   let puntosGanados = 0;
   let dineroGanado = 0;
-
 
   if (jugadorWin === jugador.nombre) {
     puntosGanados = 100 + enemigo.ataque;
@@ -94,7 +91,7 @@ export function batalla(jugador, enemigo) {
 }
 
 export function guardarRakingLocalStore(jugador) {
-  const rankingReino = "aventuraJS"
+
   let puntuacionFinal = jugador.puntos + jugador.dinero;
   let guardarDatosLocal = {
     nombre: jugador.nombre,
@@ -112,9 +109,6 @@ export function guardarRakingLocalStore(jugador) {
 }
 
 
-
-
-
 /**
 * Agrupa jugadores según su puntuación:
 * - "pro" si superan el umbral.
@@ -128,18 +122,22 @@ export function agruparPorNivel(jugadores, umbral = 300) {
   return groupBy(jugadores, jugador => (jugador.puntos >= umbral ? 'pro' : 'rookie'));
 }
 
-/**
- * Muestra el ranking final de jugadores en consola,
- * ordenados por puntuación de mayor a menor.
- * @param {Array<Jugador>} jugadores - Lista de jugadores.
- */
-export function mostrarRanking(jugadores) {
-  // Ordena de mayor a menor puntuación
-  const ordenados = jugadores.slice().sort((a, b) => b.puntos - a.puntos);
 
+export function mostrarRanking() {
+  let datos = localStorage.getItem(rankingReino);
+  let listadoParaVer = [];
+
+  if (datos !== null) {
+    listadoParaVer = JSON.parse(datos);
+  }
+  // Ordena de mayor a menor puntuación
+  //const ordenados = jugadores.slice().sort((a, b) => b.puntos - a.puntos);
+  const ordenados = listadoParaVer.sort((a, b) => b.puntuacion - a.puntuacion);
   console.log('🏆 RANKING FINAL 🏆');
-  for (const jugador of ordenados) {
-    console.log(jugador.mostrarJugador());
+  if (ordenados.length > 0) {
+    console.table(ordenados);
+  } else {
+    console.log("No hay partidas en el historial.")
   }
 }
 
