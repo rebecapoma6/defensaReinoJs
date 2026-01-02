@@ -11,55 +11,116 @@
 </head>
 
 <body>
-    <header>
+    <header class="juego-header">
         <h1 id="title">Aventura en el reino</h1>
     </header>
-    <main>
 
 
-        <!-- Escena 1: Estado inicial -->
+    <div id="monedero-contenedor" class="monedero-fijo">
+        <img src="image/monedero.png" alt="" id="img-monedero">
+        <span id="cantidad-dinero">500</span>
+    </div>
+    <main class="juego-main">
+
+        <!-- Escena 1: Formulario -->
         <div id="scene-1" class="scene active">
-            <div id="ocultar">
-                <label for="player-name-input">Introduce tu nombre:</label>
-                <input type="text" id="player-name-input" placeholder="Tu nombre..." />
+
+            <form id="formulario-jugador" onsubmit="return false;">
+                <div class="form-campos">
+                    <label for="player-name-input">Introduce tu nombre: </label>
+                    <input type="text" id="player-name-input" placeholder="Tu nombre..." required />
+                </div>
+                <div class="form-campos">
+                    <label>Ataque: </label>
+                    <input type="number" id="input-atk" value="0">
+                </div>
+                <div class="form-campos">
+                    <label>Defensa: </label>
+                    <input type="number" id="input-def" value="0">
+                </div>
+                <div class="form-campos">
+                    <label>Vida: </label>
+                    <input type="number" id="input-hp" value="100">
+                </div>
+            </form>
+
+            <div id="avatar-container">
                 <p>Selecciona un avatar:</p>
                 <div id="avatar-selection">
-          <img src="image/hombre.jpg" alt="Avatar Hombre" class="avatar selectable" data-avatar="image/hombre.jpg">
-          <img src="image/mujer.jpg" alt="Avatar Mujer" class="avatar selectable" data-avatar="image/mujer.jpg">
-        </div>
-                <button id="btn-create-player">Crear jugador</button>
+                    <img src="image/hombre.jpg" alt="Avatar Hombre" class="avatar selectable"
+                        data-avatar="image/hombre.jpg">
+                    <img src="image/mujer.jpg" alt="Avatar Mujer" class="avatar selectable"
+                        data-avatar="image/mujer.jpg">
+                </div>
             </div>
-            <div id="player-stats"></div>
 
-            <button id="btn-to-market">Continuar</button>
+            <button id="btn-create-player" class="btn-main">Crear jugador</button>
+
         </div>
 
-        
-        <!-- Escena 2: Mercado -->
+
+        <!-- Escena 2: Tarjeta(estado inicial q viene del formulario) del jugador -->
         <div id="scene-2" class="scene">
-            <h2>🏪 Mercado de productos</h2>
-            <div id="market-container"></div>
-            <button id="btn-to-battle">Confirmar compra y continuar ⚔️</button>
+            <h2>Tarjeta del jugador</h2>
+            <div class="tarjetaScene">
+                <div class="statScene">
+                    <img id="imgJugadorScene-2" src="" alt="" class="avataR">
+                    <h2 id="nameJugadorScene-2"></h2>
+                </div>
+
+                <div class="scene-container">
+                    <div class="stat-box">Ataque: <span id="atak-2">0</span></div>
+                    <div class="stat-box">Defensa: <span id="def-2">0</span></div>
+                    <div class="stat-box">Vida: <span id="hp-2">100</span></div>
+                    <div class="stat-box">Puntos: <span id="pts-2">0</span></div>
+                </div>
+            </div>
+
+            <button id="btn-to-market" class="btn-main">🏪 Continuar Mercado</button>
+
         </div>
 
-        <!-- Escena 3: Estado del jugador -->
+        <!-- Escena 3: Mercado -->
         <div id="scene-3" class="scene">
-            <h2>🧭 Estado del jugador</h2>
-            <br>
-            <div id="player-current"></div>
-            <button id="btn-to-enemies">Ver enemigos 👹</button>
+            <h2 class="scene-title">🏪 Mercado de productos</h2>
+            <div id="market-container"></div>
+
+            <div class="market-controls">
+                <h3 id="basket-total">Total Cesta: 0€</h3>
+                <button id="btn-to-battle">Confirmar compra y continuar ⚔️</button>
+            </div>
         </div>
 
-        <!-- Escena 4: Enemigos -->
+        <!-- Escena 4: Estado del jugador(actualizado despues de comprar en el mercado) -->
         <div id="scene-4" class="scene">
-            <h2>👹 Enemigos del reino</h2>
-            <div id="enemies-container"></div>
-            <button id="btn-to-combat">Iniciar batallas ⚔️</button>
+            <div class="tarjetaScene">
+                <div class="statScene">
+                    <img id="imgJugadorScene-4" src="" alt="" class="avataR">
+                    <h2 id="nameJugadorScene-4"></h2>
+                </div>
+
+                <div class="scene-container">
+                    <div class="stat-box">Ataque: <span id="atak-4">0</span></div>
+                    <div class="stat-box">Defensa: <span id="def-4">0</span></div>
+                    <div class="stat-box">Vida: <span id="hp-4">100</span></div>
+                    <div class="stat-box">Puntos: <span id="pts-4">0</span></div>
+                </div>
+            </div>
+            <button id="btn-to-enemies" class="btn-main">Ver enemigos 👹</button>
         </div>
 
-        <!-- Escena 5: Batallas -->
+        <!-- Escena 5: Enemigos -->
         <div id="scene-5" class="scene">
-            <h2>⚔️ Batallas en curso</h2>
+            <h2 class="scene-title">👹 Enemigos del reino</h2>
+
+            <div id="enemies-container"></div>
+
+            <button id="btn-to-combat" class="btn-main">Iniciar batallas ⚔️</button>
+        </div>
+
+        <!-- Escena 6: Batallas -->
+        <div id="scene-6" class="scene">
+            <h2 class="scene-title">⚔️ Batallas</h2>
             <div id="battle-visual">
                 <div class="battle-player">
                     <img id="battle-player-img" class="player-img" src="" alt="Jugador">
@@ -74,23 +135,47 @@
                 </div>
             </div>
 
-            <div id="battle-output"></div>
+            <div id="battle-output" class="combat-log"></div>
             <button id="btn-next-battle">Siguiente batalla ➡️</button>
         </div>
 
-        <!-- Escena 6: Resultado final -->
-        <div id="scene-6" class="scene">
-            <h2>🏁 Resultado final</h2>
-            <div id="final-result"></div>
-            <button id="btn-restart">Reiniciar 🔁</button>
+        <!-- Escena 7: Resultado final -->
+        <div id="scene-7" class="scene">
+            <h2 class="scene-title">🏁 Resultado final</h2>
+            <div id="result-message"></div>
+            <button id="btn-show-ranking" class="btn-main">Ver clasificación</button>
+
+        </div>
+
+        <!-- Escena 8: Resultado Ranking -->
+        <div id="scene-8" class="scene">
+            <h2 class="scene-title"> Ranking </h2>
+            <div class="table-container">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Puntos</th>
+                            <th>Dinero</th>
+                        </tr>
+                    </thead>
+                    <tbody id="ranking-body"></tbody>
+                </table>
+            </div>
+
+            <button id="btn-restart" class="btn-main">Reiniciar 🔁</button>
+
         </div>
     </main>
 
-
-
     <footer>
         <div id="inventory-container">
-
+            <div class="foo-product"></div>
+            <div class="foo-product"></div>
+            <div class="foo-product"></div>
+            <div class="foo-product"></div>
+            <div class="foo-product"></div>
+            <div class="foo-product"></div>
         </div>
     </footer>
 </body>
