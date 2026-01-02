@@ -11,6 +11,7 @@ export const mercado = [
   new Producto('Mandoble épico', 150, 'épico', 'arma', { ataque: 32 },'image/mandoble.jpg'),
   new Producto('Placas dracónicas', 100, 'épico', 'armadura', { defensa: 28 },'image/placaDragonica.jpg'),
   new Producto('Elixir legendario', 120, 'épico', 'consumible', { vida: 150 },'image/posionLegendario.jpg'),
+  
 ];
 
 /**
