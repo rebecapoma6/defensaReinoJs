@@ -20,7 +20,7 @@ export function batalla(jugador, enemigo) {
   let historialBatallas = [];
   let turno = 1;
   // Copiamos las vidas actuales (sin modificarlas directamente)
-  let vidaJugador = jugador.vida;
+  let vidaJugador = jugador.vidaActual;
   let vidaEnemigo = enemigo.vida;
 
   historialBatallas.push(`Comienza la batalla contra ${enemigo.nombre}`);
