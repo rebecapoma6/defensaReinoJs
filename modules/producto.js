@@ -53,7 +53,7 @@ export class Producto {
         <div class="product-info">
             <img src="${this.imagen}" alt="${this.nombre}" class="product-image">
             <div class="product-details">
-                <h4>${this.nombre}</h4>
+                <h4 class="product-title">${this.nombre}</h4>
                 ${estadisticaPrincipal}
                 <p class="product-price">${precioTexto}</p>
             </div>
