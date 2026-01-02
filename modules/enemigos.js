@@ -3,6 +3,7 @@
     nombre;
     ataque;
     vida;
+    imagen;
 
     /**
      * Crea una nueva instancia de Enemigo.
