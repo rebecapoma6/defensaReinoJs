@@ -1,7 +1,393 @@
-
-*{
+* {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+  --primary-color:#fef6e4;
+  --secondary-color: rgb(94, 64, 15);
+ 
 }
 
 
+
+
+body {
+    background: var(--primary-color);
+    height: 100vh;
+    width: 100vw;
+    font-family: "Eagle Lake", serif;
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.scene-title {
+    position: sticky;
+    top: -20px; /* Alineado al borde del main */
+    margin: -20px -20px 20px -20px;
+    width: calc(100% + 40px); /* Ocupa todo el ancho del main */
+    height: 10vh;
+    background: white;
+    display: flex;
+    justify-content: left; 
+    align-items: center;
+    z-index: 20; 
+   
+}
+
+
+.market-controls{
+  position: sticky;
+    bottom: -20px;
+    margin: 20px -20px -20px -20px;
+    width: calc(100% + 40px);
+    height: 10vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    border-top: 2px solid #3E2723;
+}
+.scene {
+    display: none;  
+  
+}
+
+.scene.active {
+    display: block;
+}
+
+
+header {
+    height: 10vh;
+    background: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    z-index: 10; /* Menor que las monedas */
+}
+
+main{
+    flex-grow: 1;
+    padding: 20px;
+    overflow-y: auto;    
+}
+
+
+footer {
+    height: 20vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+#monedero-contenedor {
+    position: fixed;
+    bottom: -2%;
+    left: 2%;
+    width: 120px;
+    z-index: 999;
+    animation: moverMonedero 1.7s ease-out forwards;
+}
+
+#monedero-contenedor img {
+    width: 100%;
+}
+
+#monedero-contenedor span {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+@keyframes moverMonedero {
+    from{
+        transform: translateX(-200px);
+     
+    }
+    to{
+        transform: translateX(0);
+     
+    }
+}
+
+
+
+.avatar {
+    width: 150px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #EEDCC3;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    padding: 5px;
+    box-shadow: 0 4px 8px 0;
+}
+
+.avataR {
+    width: 150px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #EEDCC3;
+    background: white;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/*Monedas aniamdas*/
+.moneda{
+    position: fixed;
+    top: -100px;
+    width: 100px;
+    height: 100px;
+    z-index: 9999;
+    pointer-events: none;
+    animation: monedasGanador 3s ease-in-out forwards;    
+}
+
+.moneda:nth-last-child(3) { left: 25%; }
+.moneda:nth-last-child(2) { left: 50%; }
+.moneda:nth-last-child(1) { left: 75%; }
+
+@keyframes monedasGanador {
+    0%{
+        top:-100px;
+        transform: rotateY(0deg);
+        opacity: 1;
+        
+    }
+    50%{
+        transform: rotateY(360deg);
+    }
+    100%{
+        top: 50vh;        
+        transform: rotateY(720deg);
+        opacity: 0;
+    }
+}
+
+.avatar:hover {
+    transform: scale(1.05);
+    border-color: #A1887F;
+}
+
+.avatar.selected {
+    border-color: #D4AF37;
+    box-shadow: 0 0 15px #D4AF37;
+    transform: translateY(-5);
+}
+
+#market-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(140px, 1fr));
+    gap: 15px;
+    padding: 10px;
+}
+
+
+.producto-card {
+    background: #de7878;
+    border: 2px solid #3E2723;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;    
+    box-shadow: 0 4px 6px;
+    cursor: pointer;
+}
+
+.producto-card:hover {
+    background: orange;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.producto-card.added {
+    background: #FFF9C4;
+    border-color: #FBC02D;
+}
+
+.producto-card img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+.product-title {
+    font-size: 15px;
+    margin: 5px 0;
+}
+
+.product-price {
+    font-weight: bold;
+    margin: 5px 0;
+}
+
+
+.btn-mercado {
+    background: #3E2723;
+    color: #D4AF37;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background 0.3s;
+}
+
+
+/* --- FOOTER INVENTARIO --- */
+#inventory-container {
+    background-color: #3E2723;
+    display: flex;
+    margin: 8px 20%;
+    padding: 8px;
+    gap: 4px;
+    border-radius: 4px;
+}
+
+.foo-product {
+    background-color: #EEDCC3;
+    border: 1px solid black;
+    width: 100px;
+    border-radius: 10px;
+    aspect-ratio: 1 / 1;
+
+}
+
+.foo-product img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+/************Tabla de RANKING*************/
+/* Scrollable container */
+.table-container {
+  border: 1px solid #e5e7eb;
+  border-bottom: none;
+  overflow: auto; /* Enables both horizontal and vertical scrolling */
+  height: 200px; /* Limits table height for vertical scrolling */
+  width: 550px;
+  
+  
+}
+
+/* Table layout */
+.table {
+  border-collapse: collapse;
+  width: 100%;
+  table-layout: fixed; /* Ensures consistent column widths */
+}
+
+/* Table cells and headers */
+.table th,
+.table td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #e5e7eb;
+}
+
+/* Frozen first column */
+.table td:nth-child(1),
+.table th:nth-child(1) {
+  background: red; /* Highlighted background for frozen column */
+  position: sticky;
+  left: 0; /* Ensures the column stays on the left */
+  z-index: 5; /* Keeps the column above other cells */
+  color: white;
+}
+
+/* Add higher z-index for header */
+.table th:nth-child(1) {
+  z-index: 6;
+}
+
+/* Sticky header */
+.table th {
+  background-color: #1e3a8a;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  position: sticky;
+  top: 0; /* Makes the header stick to the top */
+  z-index: 2; /* Keeps the header above the table body */
+}
+
+/* Styling for table body */
+.table td {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* Zebra striping for rows */
+.table tr:nth-child(odd) {
+  background-color: #f9fafb;
+}
+
+/* Hover effect for rows */
+.table tr:hover {
+  background-color: rgba(14, 116, 144, 0.1);
+}
+
+/* No data row styling */
+.no-data {
+  text-align: center;
+  font-size: 14px;
+  color: #9ca3af;
+}
+
+
+.enemy-card img{
+     width: 150px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #EEDCC3;
+    background: white;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo para las imágenes en la escena de batalla */
+.player-img, .enemy-img {
+    width: 150px;
+    height: 230px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #EEDCC3;
+    background: white;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Opcional: Contenedor de la batalla para alinearlos mejor */
+#battle-visual {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
