@@ -30,10 +30,11 @@
         <!-- Escena 1: Formulario -->
         <div id="scene-1" class="scene active">
 
-            <form id="formulario-jugador" onsubmit="return false;">
+            <form id="formulario-jugador">
                 <div class="form-campos">
                     <label for="player-name-input">Introduce tu nombre: </label>
                     <input type="text" id="player-name-input" placeholder="Tu nombre..." required />
+                    <small></small>
                 </div>
                 <div class="form-campos">
                     <label>Ataque: </label>
@@ -45,7 +46,8 @@
                 </div>
                 <div class="form-campos">
                     <label>Vida: </label>
-                    <input type="number" id="input-hp" value="100">
+                    <input type="number" id="input-hp" value="" placeholder="100">
+                     <small></small>
                 </div>
             </form>
 
