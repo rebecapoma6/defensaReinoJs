@@ -4,7 +4,7 @@ export class Jugador {
   nombre;
   puntos;
   inventario;
-  vidaMax;
+  vidaBase;
   vidaActual;
   avatar;
   ataqueInicio;
@@ -15,18 +15,18 @@ export class Jugador {
    * Crea una nueva instancia de Jugador.
    * @param {string} nombre - Nombre del jugador.
    */
-  constructor(nombre, avatar,ataque,defensa,vida,dinero = 500) {
+  constructor(nombre, avatar,ataque,defensa,vidaExtra,dinero = 500) {
     this.nombre = nombre;
     this.avatar = avatar;
     this.ataqueInicio = ataque;
     this.defensaInicio = defensa;
-    this.vidaMax = vida;
-
+    this.vidaBase = 100 + vidaExtra;
+    this.vidaActual = this.vidaBase;
     this.dinero = dinero;
     this.puntos = 0;
     this.inventario = [];
   
-    this.vidaActual = vida;
+   
   }
 
     /**
@@ -52,7 +52,7 @@ export class Jugador {
    */
   get vidaTotal() {
      let sumaBonusItems = this.inventario.reduce((total, item) => total + (item.bonus.vida || 0), 0);
-    return this.vidaMax + sumaBonusItems
+    return this.vidaBase + sumaBonusItems
   }
 
   /**
@@ -62,8 +62,10 @@ export class Jugador {
    */
   añadirItem(itemComprado) {
     this.inventario.push(structuredClone(itemComprado));
-    // Actualiza la vida máxima actual si es consumible
-    this.vidaActual = this.vidaTotal;
+   
+    if (itemComprado.bonus && itemComprado.bonus.vida) {
+        this.vidaActual += itemComprado.bonus.vida;
+    }
   }
 
   /**
