@@ -34,7 +34,7 @@ export function batalla(jugador, enemigo) {
 
     if (vidaEnemigo <= 0) { break; }
 
-    /**
+    /**   
      * Ataque del enemigo hacia el jugador
      */
     let danioBaseEnemigo = enemigo.ataque;
@@ -132,7 +132,7 @@ export function mostrarRanking() {
   }
   // Ordena de mayor a menor puntuación
   //const ordenados = jugadores.slice().sort((a, b) => b.puntos - a.puntos);
-  const ordenados = listadoParaVer.sort((a, b) => b.puntuacion - a.puntuacion);
+  const ordenados = listadoParaVer.slice().sort((a, b) => b.puntuacion - a.puntuacion);
   console.log('🏆 RANKING FINAL 🏆');
   if (ordenados.length > 0) {
     console.table(ordenados);
