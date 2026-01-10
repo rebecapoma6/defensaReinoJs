@@ -62,7 +62,7 @@ export function actualizarFormulario(jugador, num) {
     if (nombre) nombre.textContent = jugador.nombre;
     if (ataque) ataque.textContent = jugador.ataqueTotal;
     if (defensa) defensa.textContent = jugador.defensaTotal;
-    if (vida) vida.textContent = `${jugador.vidaActual}/${jugador.vidaTotal}`;
+    if (vida) vida.textContent = `${jugador.vidaTotal}`;
     if (puntos) puntos.textContent = jugador.puntos;
 
 }
