@@ -46,7 +46,7 @@ export class Producto {
     let precioTexto = EUR.format(this.precio);
     if (this.precio < this.precioOriginal) {
       // Si el precio actual es menor que el original, mostramos ambos
-      precioTexto = `<span class="discount-price"><del>${EUR.format(this.precioOriginal)}</del> ${EUR.format(this.precio)} 🔥</span>`;
+      precioTexto = `<span><del>${EUR.format(this.precioOriginal)}</del> ${EUR.format(this.precio)} 🔥</span>`;
     }
 
    return `

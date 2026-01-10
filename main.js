@@ -1,9 +1,20 @@
 import { Jugador } from "./modules/jugadores.js";
 import { Enemigo, JefeFinal } from "./modules/enemigos.js";
-import { mercado, aplicarDescuentoPorRareza, obtenerRarezasUnicas } from "./modules/mercado.js"
+import { aplicarDescuentoPorRareza, obtenerRarezasUnicas } from "./modules/mercado.js"
 import { batalla, agruparPorNivel, guardarRakingLocalStore, mostrarRanking } from "./modules/ranking.js";
 import { showScene } from "./utils/scene.js";
 import { EUR, actualizarFormulario } from "./utils/utils.js";
+
+
+
+let inputName = document.getElementById("player-name-input");
+let inputAtk = document.getElementById("input-atk");
+let inputDef = document.getElementById("input-def");
+let inputVida = document.getElementById("input-hp");
+
+
+let validarName = false;
+let validPuntos = false;
 
 
 let jugador;
@@ -12,6 +23,14 @@ let cestaDeCompra = [];
 let indiceBatlla = 0;
 let avatarElegido = null;
 
+
+
+const regexName = /^[A-Z][a-zA-Z\s]{0,19}$/;
+const NAME_INVALID = "El nombre debe empezar con Mayúscula y tener máximo 20 caractereS.";
+const PUNTOS_INVALID = "Solo puedes repartir un máximo de 10 puntos extra entre tus estadísticas";
+
+
+
 const listaEnemigos = [
     new Enemigo('Goblin', 9, 60, 'image/Gobln.jpg'),
     new Enemigo('Orcoh', 6, 50, 'image/Orcoh.jpg'),
@@ -19,6 +38,16 @@ const listaEnemigos = [
 ];
 
 
+
+inputName.addEventListener("blur", validarNombreForm);
+inputAtk.addEventListener("blur", validarPuntosForm);
+inputDef.addEventListener("blur", validarPuntosForm);
+inputVida.addEventListener("blur", validarPuntosForm);
+
+
+/**
+ * Debe seleccionar un avatar para pasar a la siguiente escena
+ */
 document.querySelectorAll('.selectable').forEach(img => {
     img.addEventListener('click', (event) => {
         document.querySelectorAll('.selectable').forEach(i => i.classList.remove('selected'));
@@ -27,31 +56,60 @@ document.querySelectorAll('.selectable').forEach(img => {
     });
 });
 
+
+
+function validarNombreForm() {
+    validarName = regexName.test(inputName.value.trim());
+
+    if (!validarName) {
+        inputName.nextElementSibling.innerHTML = NAME_INVALID;
+    } else {
+        inputName.nextElementSibling.innerHTML = "";
+    }
+    return validarName;
+}
+
+
+function validarPuntosForm() {
+    const ataque = parseInt(inputAtk.value) || 0;
+    const defnsa = parseInt(inputDef.value) || 0;
+    const vidaValid = parseInt(inputVida.value) || 0;
+
+    validPuntos = (ataque + defnsa + vidaValid <= 10 && ataque + defnsa + vidaValid >= 0);
+    if (!validPuntos) {
+        inputVida.nextElementSibling.innerHTML = PUNTOS_INVALID;
+    } else {
+        inputVida.nextElementSibling.innerHTML = "";
+    }
+    return validPuntos;
+
+}
+
+
+
+
 /**
  * Escena-1 -> Creacion de Jugador
  */
 document.getElementById('btn-create-player').addEventListener('click', () => {
 
-    const nombreJugador = document.getElementById('player-name-input').value.trim();
-    const atak = parseInt(document.getElementById('input-atk').value) || 0;
-    const def = parseInt(document.getElementById('input-def').value) || 0;
-    const vida = parseInt(document.getElementById('input-hp').value) || 100;
+    const nombreFormOK = validarNombreForm();
+    const puntosFormOK = validarPuntosForm();
 
-    const regexName = /^[A-Z][a-zA-Z\s]{0,19}$/;
-    const NAME_INVALID = "El nombre debe empezar con Mayúscula y tener máximo 20 caractereS.";
-    const PUNTOS_INVALID = "Solo puedes repartir un máximo de 10 puntos extra entre tus estadísticas";
-
-
-    if (!regexName.test(nombreJugador)) {
-        return alert(NAME_INVALID);
+    if (!nombreFormOK || !puntosFormOK) {
+        return;
     }
-    if (atak + def + (vida - 100) > 10) {
-        return alert(PUNTOS_INVALID);
-    }
+
     if (!avatarElegido) {
         return alert("Seleccione un avatar para el juego.")
     }
 
+    const nombreJugador = inputName.value.trim();
+    const atak = parseInt(document.getElementById('input-atk').value) || 0;
+    const def = parseInt(document.getElementById('input-def').value) || 0;
+    const vida = parseInt(document.getElementById('input-hp').value) || 0;
+
+   
 
     jugador = new Jugador(nombreJugador, avatarElegido, atak, def, vida, 500);
     actualizarFormulario(jugador, 2);
@@ -59,6 +117,9 @@ document.getElementById('btn-create-player').addEventListener('click', () => {
     showScene("scene-2");
 
 })
+
+
+
 
 /**
  * Escena 2 ---> iremos a Mercado escena-3
@@ -75,6 +136,8 @@ document.getElementById('btn-to-market').addEventListener('click', () => {
 });
 
 
+
+
 function mostrarMercado() {
     const contenedorMercado = document.getElementById('market-container');
     const totalCesta = cestaDeCompra.reduce((acumulador, product) => {
@@ -87,7 +150,7 @@ function mostrarMercado() {
     contenedorMercado.innerHTML = mercadoActual.map((prod, i) => {
         const enCestaActual = cestaDeCompra.some(pdto => pdto.nombre === prod.nombre);
         return `
-        <div class="producto-card" ${enCestaActual ? 'added' : ''}>
+        <div class="producto-card ${enCestaActual ? 'added' : ''}">
         ${prod.mostrarProducto()}
         <button class="btn-mercado" data-indice="${i}">${enCestaActual ? 'Quitar' : 'Añadir'}</button>
         </div>
@@ -97,6 +160,8 @@ function mostrarMercado() {
         btnMercado.addEventListener('click', () => actualizarCesta(parseInt(btnMercado.dataset.indice)))
     })
 }
+
+
 
 
 function actualizarCesta(inc) {
@@ -119,6 +184,7 @@ function actualizarCesta(inc) {
 
 
 
+
 /** Escena 3 -> iremos al formulario actulizado escena-4 */
 document.getElementById('btn-to-battle').addEventListener('click', () => {
     const totalCompra = cestaDeCompra.reduce((acumulador, producto) => acumulador + producto.precio, 0);
@@ -133,6 +199,9 @@ document.getElementById('btn-to-battle').addEventListener('click', () => {
 
 
 
+/**
+ * Escena 4 -Ver a los enemigos del juego Escena 5
+ */
 document.getElementById('btn-to-enemies').addEventListener('click', () => {
     const contenedorEnemigos = document.getElementById('enemies-container');
     contenedorEnemigos.innerHTML = listaEnemigos.map(enmigo => `
@@ -146,8 +215,10 @@ document.getElementById('btn-to-enemies').addEventListener('click', () => {
 });
 
 
+
+
 /**
- * Combate - Iniciaremos los combates 
+ * Combate escena 5 - Iniciaremos los combates escena 6
  */
 document.getElementById('btn-to-combat').addEventListener('click', () => {
     indiceBatlla = 0;
@@ -162,15 +233,16 @@ document.getElementById('btn-to-combat').addEventListener('click', () => {
  * Monedas - mostraremos las monedas , cuando haya un ganador
  */
 function mostraMonedasAnimadas() {
-    const monedasAnimadas = ` 
-    <img src="image/moneda.png" alt="moneda" class="moneda">
-    <img src="image/moneda.png" alt="moneda" class="moneda">
-    <img src="image/moneda.png" alt="moneda" class="moneda">
-    `;
-    document.body.insertAdjacentHTML('beforeend', monedasAnimadas);
+    const monedasPosiciones = ['m-izquierda', 'm-centro', 'm-derecha']
+    monedasPosiciones.forEach(mPosicion => {
+        let imgMoneda = `<img src="image/moneda.png" alt="moneda" class="moneda ${mPosicion}">`;
+        document.body.insertAdjacentHTML('beforeend', imgMoneda);
+    });
+
 
     setTimeout(() => {
-        document.querySelectorAll('.moneda').forEach(m => m.remove());
+        const verMoneda = document.querySelectorAll('.moneda');
+        verMoneda.forEach(m => m.remove());
     }, 3500); //3.5 segundos que espere antes de remover las monedas
 }
 
@@ -187,16 +259,29 @@ async function generarBatallaActual() {
 
     const rival = listaEnemigos[indiceBatlla];
     const resultadoGandor = batalla(jugador, rival);
-    document.getElementById("battle-player-img").src = jugador.avatar;
+
+    const imgJugador = document.getElementById("battle-player-img");
+    const imgEnemigo = document.getElementById("battle-enemy-img");
+    imgJugador.classList.remove('entradaIzquierda');
+    imgEnemigo.classList.remove('entradaDerecha');
+
+    await new Promise(resolve => requestAnimationFrame(resolve));
+
+    imgJugador.src = jugador.avatar;
     document.getElementById("battle-player-name").textContent = jugador.nombre;
-    document.getElementById("battle-enemy-img").src = rival.imagen;
+    imgEnemigo.src = rival.imagen;
     document.getElementById("battle-enemy-name").textContent = rival.nombre;
+
+    imgJugador.classList.add('entradaIzquierda');
+    imgEnemigo.classList.add('entradaDerecha');
+
 
     if (resultadoGandor.ganador === jugador.nombre) {
         mostraMonedasAnimadas();
     }
 
-    document.getElementById('battle-output').innerHTML = `
+    const sgtBatalla = document.getElementById('battle-output');
+    sgtBatalla.innerHTML = `
     <p>Ganador: <strong>${resultadoGandor.ganador}</strong></p>
     <p>Puntos ganados: <strong>${resultadoGandor.puntosGanados}</strong></p>
     `;
@@ -216,14 +301,12 @@ document.getElementById('btn-next-battle').addEventListener('click', generarBata
 
 
 
-
-
 /**
  * 
  */
 function verResultadoFinal() {
     showScene('scene-7');
-    const nivel = agruparPorNivel([jugador], 250);
+    const nivel = agruparPorNivel([jugador], 300);
     let mensajeNivel;
     let puntuacionFinal = jugador.puntos + jugador.dinero;
 
@@ -267,9 +350,10 @@ document.getElementById('btn-show-ranking').addEventListener('click', () => {
     showScene('scene-8');
 });
 
-document.getElementById('btn-verRanking').addEventListener('click', ()=>{
+document.getElementById('btn-verRanking').addEventListener('click', () => {
     mostrarRanking();
 })
+
 
 
 
@@ -285,6 +369,8 @@ function actualizarfooter() {
     });
 
 }
+
+
 
 
 function actualizarMonedero(desc = 0) {
