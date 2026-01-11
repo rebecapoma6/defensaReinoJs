@@ -25,6 +25,8 @@
         <img src="image/monedero.png" alt="" id="img-monedero">
         <span id="cantidad-dinero">500</span>
     </div>
+
+
     <main class="juego-main">
 
         <!-- Escena 1: Formulario -->
@@ -33,9 +35,12 @@
             <form id="formulario-jugador">
                 <div class="form-campos">
                     <label for="player-name-input">Introduce tu nombre: </label>
-                    <input type="text" id="player-name-input" placeholder="Tu nombre..." required />
-                    <small></small>
-                </div>
+                    <input type="text" id="player-name-input" placeholder="Tu nombre..." required />  
+
+                <small></small> 
+
+                </div>                
+
                 <div class="form-campos">
                     <label>Ataque: </label>
                     <input type="number" id="input-atk" value="0">
@@ -47,13 +52,19 @@
                 <div class="form-campos">
                     <label>Vida: </label>
                     <input type="number" id="input-hp" value="" placeholder="100">
-                     <small></small>
+
+                <small></small>
+
                 </div>
+
+                
+
             </form>
 
             <div id="avatar-container">
-                <p>Selecciona un avatar:</p>
+                <p>Selecciona un avatar:</p> 
                 <div id="avatar-selection">
+                  
                     <img src="image/hombre.jpg" alt="Avatar Hombre" class="avatar selectable"
                         data-avatar="image/hombre.jpg">
                     <img src="image/mujer.jpg" alt="Avatar Mujer" class="avatar selectable"
@@ -94,7 +105,7 @@
 
             <div class="market-controls">
                 <h3 id="basket-total">Total Cesta: 0€</h3>
-                <button id="btn-to-battle">Confirmar compra y continuar ⚔️</button>
+                <button id="btn-to-battle" class="btn-main">Confirmar compra y continuar</button>
             </div>
         </div>
 
@@ -143,7 +154,7 @@
             </div>
 
             <div id="battle-output" class="combat-log"></div>
-            <button id="btn-next-battle">Siguiente batalla ➡️</button>
+            <button id="btn-next-battle" class="btn-main">Siguiente batalla</button>
         </div>
 
         <!-- Escena 7: Resultado final -->
@@ -170,7 +181,7 @@
                 </table>
             </div>
             <div class="button">
-                <button id="btn-restart" class="btn-main">Reiniciar 🔁</button>
+                <button id="btn-restart" class="btn-main">Reiniciar</button>
                 <button id="btn-verRanking" class="btn-main">Ver por consola</button>
             </div>
 
