@@ -62,7 +62,7 @@
             </form>
 
             <div id="avatar-container">
-                <p>Selecciona un avatar:</p> 
+                <h2>Selecciona un avatar :</h2> 
                 <div id="avatar-selection">
                   
                     <img src="image/hombre.jpg" alt="Avatar Hombre" class="avatar selectable"
@@ -79,7 +79,7 @@
 
         <!-- Escena 2: Tarjeta(estado inicial q viene del formulario) del jugador -->
         <div id="scene-2" class="scene">
-            <h2>Tarjeta del jugador</h2>
+            
             <div class="tarjetaScene">
                 <div class="statScene">
                     <img id="imgJugadorScene-2" src="" alt="" class="avataR">
@@ -94,17 +94,17 @@
                 </div>
             </div>
 
-            <button id="btn-to-market" class="btn-main">🏪 Continuar Mercado</button>
+            <button id="btn-to-market" class="btn-main">Continuar Mercado</button>
 
         </div>
 
         <!-- Escena 3: Mercado -->
         <div id="scene-3" class="scene">
-            <h2 class="scene-title">🏪 Mercado de productos</h2>
+            <h2 class="scene-title">Mercado de productos</h2>
             <div id="market-container"></div>
 
             <div class="market-controls">
-                <h3 id="basket-total">Total Cesta: 0€</h3>
+                <h3 id="basket-total">Total Cesta: 0€</h3><br>
                 <button id="btn-to-battle" class="btn-main">Confirmar compra y continuar</button>
             </div>
         </div>
@@ -124,12 +124,12 @@
                     <div class="stat-box">Puntos: <span id="pts-4">0</span></div>
                 </div>
             </div>
-            <button id="btn-to-enemies" class="btn-main">Ver enemigos 👹</button>
+            <button id="btn-to-enemies" class="btn-main">Ver enemigos</button>
         </div>
 
         <!-- Escena 5: Enemigos -->
         <div id="scene-5" class="scene">
-            <h2 class="scene-title">👹 Enemigos del reino</h2>
+            <h2 class="scene-title">Enemigos del reino</h2>
 
             <div id="enemies-container"></div>
 
@@ -138,7 +138,7 @@
 
         <!-- Escena 6: Batallas -->
         <div id="scene-6" class="scene">
-            <h2 class="scene-title">⚔️ Batallas</h2>
+            <h2 class="scene-title">Batallas</h2>
             <div id="battle-visual">
                 <div class="battle-player">
                     <img id="battle-player-img" class="player-img" src="" alt="Jugador">
@@ -159,7 +159,7 @@
 
         <!-- Escena 7: Resultado final -->
         <div id="scene-7" class="scene">
-            <h2 class="scene-title">🏁 Resultado final</h2>
+            <h2 class="scene-title">Resultado final</h2>
             <div id="result-message"></div>
             <button id="btn-show-ranking" class="btn-main">Ver clasificación</button>
 
@@ -180,6 +180,7 @@
                     <tbody id="ranking-body"></tbody>
                 </table>
             </div>
+            <br>
             <div class="button">
                 <button id="btn-restart" class="btn-main">Reiniciar</button>
                 <button id="btn-verRanking" class="btn-main">Ver por consola</button>
