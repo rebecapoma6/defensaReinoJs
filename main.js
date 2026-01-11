@@ -75,7 +75,7 @@ function validarPuntosForm() {
     const defnsa = parseInt(inputDef.value) || 0;
     const vidaValid = parseInt(inputVida.value) || 0;
 
-    validPuntos = (ataque + defnsa + vidaValid <= 10 && ataque + defnsa + vidaValid >= 0);
+    validPuntos = (ataque + defnsa + vidaValid === 10);
     if (!validPuntos) {
         inputVida.nextElementSibling.innerHTML = PUNTOS_INVALID;
     } else {
@@ -93,20 +93,21 @@ function validarPuntosForm() {
  */
 document.getElementById('btn-create-player').addEventListener('click', () => {
 
-    const nombreFormOK = validarNombreForm();
-    const puntosFormOK = validarPuntosForm();
-
-    if (!nombreFormOK || !puntosFormOK) {
-        return;
-    }
-   
     const nombreJugador = inputName.value.trim();
     const atak = parseInt(document.getElementById('input-atk').value) || 0;
     const def = parseInt(document.getElementById('input-def').value) || 0;
     const vida = parseInt(document.getElementById('input-hp').value) || 0;
 
-    if (atak=== 0 && def===0 && vida===0) {
+
+    if (atak === 0 && def === 0 && vida === 0) {
         return alert("Debes ingresar alguna estadística para el juego.")
+    }
+
+    const nombreFormOK = validarNombreForm();
+    const puntosFormOK = validarPuntosForm();
+
+    if (!nombreFormOK || !puntosFormOK) {
+        return;
     }
 
     if (!avatarElegido) {
