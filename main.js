@@ -32,8 +32,9 @@ const PUNTOS_INVALID = "Solo puedes repartir un máximo de 10 puntos extra entre
 
 
 const listaEnemigos = [
-    new Enemigo('Goblin', 9, 60, 'image/Gobln.jpg'),
-    new Enemigo('Orcoh', 6, 50, 'image/Orcoh.jpg'),
+    new Enemigo('Goblin', 5, 50, 'image/Gobln.jpg'),
+    new Enemigo('Orcoh', 8, 60, 'image/Orcoh.jpg'),
+    new Enemigo('Mortis', 10, 80, 'image/muerte.jpg'),
     new JefeFinal('Dragón Rojo', 30, 120, 'Llama infernal', 1.8, 'image/dragon.jpg'),
 ];
 
