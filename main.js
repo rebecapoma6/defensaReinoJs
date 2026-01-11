@@ -99,17 +99,20 @@ document.getElementById('btn-create-player').addEventListener('click', () => {
     if (!nombreFormOK || !puntosFormOK) {
         return;
     }
-
-    if (!avatarElegido) {
-        return alert("Seleccione un avatar para el juego.")
-    }
-
+   
     const nombreJugador = inputName.value.trim();
     const atak = parseInt(document.getElementById('input-atk').value) || 0;
     const def = parseInt(document.getElementById('input-def').value) || 0;
     const vida = parseInt(document.getElementById('input-hp').value) || 0;
 
-   
+    if (atak=== 0 && def===0 && vida===0) {
+        return alert("Debes ingresar alguna estadística para el juego.")
+    }
+
+    if (!avatarElegido) {
+        return alert("Seleccione un avatar para el juego.")
+    }
+
 
     jugador = new Jugador(nombreJugador, avatarElegido, atak, def, vida, 500);
     actualizarFormulario(jugador, 2);
