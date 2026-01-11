@@ -12,6 +12,8 @@ const rankingReino = "aventuraJS"
 /**
  * Simula una batalla entre un jugador y un enemigo.
  * Si el jugador gana, obtiene puntos según la fuerza del enemigo.
+ * si la defensa es mayor que el ataque , el daño seria negativo
+ * entonces , si es menor que cero , sera obligatoriamente a cero
  * @param {Jugador} jugador - Jugador participante.
  * @param {Enemigo} enemigo - Enemigo a combatir.
  * @returns {Object} Resultado con el nombre del ganador y los puntos ganados.
@@ -19,7 +21,6 @@ const rankingReino = "aventuraJS"
 export function batalla(jugador, enemigo) {
   let historialBatallas = [];
   let turno = 1;
-  // Copiamos las vidas actuales (sin modificarlas directamente)
   let vidaJugador = jugador.vidaActual;
   let vidaEnemigo = enemigo.vida;
 
@@ -34,17 +35,11 @@ export function batalla(jugador, enemigo) {
 
     if (vidaEnemigo <= 0) { break; }
 
-    /**   
-     * Ataque del enemigo hacia el jugador
-     */
     let danioBaseEnemigo = enemigo.ataque;
     let defensaJugador = jugador.defensaTotal;
     let danioNetoRecibido = danioBaseEnemigo - defensaJugador;
 
-    /**
-     * si la defensa es mayor que el ataque , el daño seria negativo
-     * entonces , si es menor que cero , sera obligatoriamente a cero
-     */
+  
     if (danioNetoRecibido < 0) { danioNetoRecibido = 0; }
 
     vidaJugador -= danioNetoRecibido;
@@ -70,7 +65,7 @@ export function batalla(jugador, enemigo) {
     puntosGanados = 100 + enemigo.ataque;
     if (enemigo.tipo === "jefe") {
       puntosGanados *= enemigo.multiplicador;
-      puntosGanados = Math.floor(puntosGanados); //quitamos los decimales para q el numero sea entero
+      puntosGanados = Math.floor(puntosGanados); 
       dineroGanado = 10;
     } else {
       dineroGanado = 5;
@@ -130,8 +125,7 @@ export function mostrarRanking() {
   if (datos !== null) {
     listadoParaVer = JSON.parse(datos);
   }
-  // Ordena de mayor a menor puntuación
-  //const ordenados = jugadores.slice().sort((a, b) => b.puntos - a.puntos);
+ 
   const ordenados = listadoParaVer.slice().sort((a, b) => b.puntuacion - a.puntuacion);
   console.log('🏆 RANKING FINAL 🏆');
   if (ordenados.length > 0) {
