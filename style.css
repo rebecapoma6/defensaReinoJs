@@ -547,62 +547,71 @@ small {
         gap: 15px;
     }
 
-    .avataR {
+    .avataR, .enemy-card img, .player-img, .enemy-img {
         width: 100px;
         height: 140px;
-    }
-
-    .scene-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-    }
-
-    #enemies-container {
-        gap: 20px;
     }
 }
 
 @media (max-width: 600px) {
+    /* CAMBIO CLAVE: Cambiamos las proporciones para móviles */
+    header {
+        height: 8vh; /* Reducimos un poco el header */
+    }
+
+    main.juego-main {
+        height: 77vh; /* Ganamos espacio en el área de juego */
+        overflow-y: auto; /* Permitimos scroll SI el contenido no cabe */
+        padding: 10px;
+    }
+
+    footer {
+        height: 15vh; /* El inventario no necesita tanto espacio en móvil */
+    }
+
+    /* Ajuste de escena para que el scroll empiece desde arriba */
+    .scene.active {
+        justify-content: flex-start; 
+        padding-top: 10px;
+        padding-bottom: 30px; /* Margen extra para que el botón respire */
+    }
+
     #formulario-jugador {
         flex-direction: column;
-        width: 90%;
-    }
-
-    #enemies-container,
-    #market-container {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        justify-items: center;
-        overflow-y: auto;
-        max-height: 50vh;
-    }
-
-    .enemy-card img {
-        width: 110px;
-        height: 140px;
-    }
-
-    .scene-title {
-        font-size: 1.2rem;
-    }
-
-    .foo-product {
-        width: 40px;
-        height: 40px;
-    }
-
-    .btn-main {
         width: 100%;
+        margin-top: 0;
         padding: 15px;
     }
 
-    #monedero-contenedor {
-        width: 105px;
-        bottom: 5px;
+    .avatar {
+        width: 90px;
+        height: 130px;
     }
 
-    #monedero-contenedor span {
-        font-size: 0.8rem;
+    #avatar-selection {
+        gap: 10px;
+    }
+
+    .scene-title, h2 {
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .btn-main {
+        width: 90%;
+        padding: 15px;
+        font-size: 14px;
+        margin-top: 20px;
+    }
+
+    /* Inventario en el footer más compacto */
+    .foo-product {
+        width: 35px;
+        height: 35px;
+    }
+
+    #monedero-contenedor {
+        width: 90px;
+        bottom: 5px;
     }
 }
