@@ -168,7 +168,17 @@ function mostrarMercado() {
 
 
 
-
+/**
+ * Controla qué pasa cuando pulsamos el botón de un producto en el mercado.
+ * Identifica qué producto hemos tocado usando su número de posición (índice).
+ * Se fija si ese producto ya lo habíamos metido antes en la cesta.
+ * Si ya estaba en la cesta, lo quita (lo borra de la lista y borra 1 solo elemento).
+ * Si no estaba, suma el precio de todo lo que ya tenemos para ver si nos alcanza el oro.
+ * Si tenemos dinero suficiente, lo guarda en la cesta; si no, nos lanza un aviso de oro insuficiente.
+ * Al final, refresca tanto la lista del mercado como los dibujos del inventario de abajo.
+ * @param {number} inc - Es la posición (índice) del producto dentro de la lista del mercado.
+ * @returns 
+ */
 function actualizarCesta(inc) {
     const productSelec = mercadoActual[inc];
     const enCestaInc = cestaDeCompra.findIndex(p => p.nombre === productSelec.nombre);
@@ -248,12 +258,18 @@ function mostraMonedasAnimadas() {
     setTimeout(() => {
         const verMoneda = document.querySelectorAll('.moneda');
         verMoneda.forEach(m => m.remove());
-    }, 3500); //3.5 segundos que espere antes de remover las monedas
+    }, 3500);
 }
 
 
 
 /**
+ * Mira si ya peleamos contra todos; si es así, nos manda al resultado final.
+ * Calcula quién gana la batalla actual entre el jugador y el enemigo que toca.
+ * Quita las animaciones viejas de los personajes para poder reiniciarlas.
+ * Espera un mini respiro 50ms y luego pone las fotos nuevas, nombres y activa las animaciones de entrada.
+ * Si el jugador es el ganador, llama a la funcion de las monedasAnimadas
+ * Actualiza el monedero y pasa al siguiente enemigo para la próxima vez.
  * 
  */
 async function generarBatallaActual() {
@@ -364,7 +380,14 @@ document.getElementById('btn-verRanking').addEventListener('click', () => {
 
 
 
-
+/**
+ * Limpia el contenido de cada cuadro (borra las imágenes viejas) para que no se amontonen.
+ * Decide qué lista de objetos mostrar: 
+ * - Si el jugador ya compró cosas, muestra su 'inventario'.
+ * - Si aún está en el mercado, muestra los objetos de la 'cestaDeCompra'.
+ * Luego recorre esa lista de objetos y, por cada uno, pone una etiqueta <img> dentro del cuadro 
+ * que le corresponda para que el usuario vea la foto del producto. 
+ */
 function actualizarfooter() {
     const invntFootr = document.querySelectorAll('.foo-product');
     invntFootr.forEach(f => f.innerHTML = '');

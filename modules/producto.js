@@ -36,16 +36,14 @@ export class Producto {
     for (const clave in this.bonus) {
         if (this.bonus[clave] > 0) {
             const icono = iconos[clave] || '✨';
-            // Formato: ⚔️ Ataque: +8
             estadisticaPrincipal = `<p class="product-stat">${icono} ${clave.charAt(0).toUpperCase() + clave.slice(1)}: +${this.bonus[clave]}</p>`;
-            break; // Solo mostramos la primera estadística encontrada
+            break; 
         }
     }
     
-    // Lógica para mostrar el precio y el descuento
+  
     let precioTexto = EUR.format(this.precio);
     if (this.precio < this.precioOriginal) {
-      // Si el precio actual es menor que el original, mostramos ambos
       precioTexto = `<span><del>${EUR.format(this.precioOriginal)}</del> ${EUR.format(this.precio)} 🔥</span>`;
     }
 
@@ -63,15 +61,17 @@ export class Producto {
 
   /**
    * Aplica un descuento al producto y devuelve una nueva instancia con el precio actualizado.
+   * Limita el porcentaje entre 0 y 100
+   * Calcula el nuevo precio (Ejemplo: 200 * (1 - 0.25))
    * @param {number} porcentaje - Porcentaje de descuento (0–100).
    * @returns {Producto} Un nuevo producto con el precio reducido.
    */
   aplicarDescuento(porcentaje) {
-    // Limita el porcentaje entre 0 y 100
+  
     if (porcentaje < 0) porcentaje = 0;
     if (porcentaje > 100) porcentaje = 100;
 
-    // Calcula el nuevo precio (Ejemplo: 200 * (1 - 0.25))
+
     const nuevoPrecio = Math.round(this.precioOriginal * (1 - porcentaje / 100));
 
     return new Producto(this.nombre, nuevoPrecio, this.rareza, this.tipo, this.bonus, this.imagen, this.precioOriginal);

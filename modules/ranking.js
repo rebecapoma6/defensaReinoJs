@@ -85,6 +85,16 @@ export function batalla(jugador, enemigo) {
 
 }
 
+/**
+ * Guarda los puntos y el dinero del jugador en el almacenamiento del navegador (localStorage).
+ * Suma los puntos ganados en batallas y el dinero que sobró para sacar la puntuación final.
+ * Prepara un "paquete" con el nombre del jugador, su puntuación y sus monedas.
+ * Va al "baúl" (localStorage) a ver si ya hay una lista de ranking guardada de antes.
+ * Si el baúl no está vacío, saca la lista y la convierte de texto a algo que JS pueda leer.
+ * Mete los datos del nuevo jugador al final de esa lista.
+ * Vuelve a guardar la lista actualizada en el "baúl" convirtiéndola de nuevo en texto.
+ * @param {Jugador} jugador - El objeto del jugador actual con sus datos.
+ */
 export function guardarRakingLocalStore(jugador) {
 
   let puntuacionFinal = jugador.puntos + jugador.dinero;
@@ -117,7 +127,13 @@ export function agruparPorNivel(jugadores, umbral = 300) {
   return groupBy(jugadores, jugador => (jugador.puntos >= umbral ? 'pro' : 'rookie'));
 }
 
-
+/**
+ * Enseña la tabla de clasificación (ranking) directamente en la consola del navegador.
+ * Va al "baúl" del navegador (localStorage) a buscar los datos de partidas anteriores.
+ * Prepara una lista vacía por si es la primera vez que se abre el juego.
+ * Si hay datos guardados, los convierte de "texto" a una lista que JS pueda leer.
+ * Crea una copia de la lista y la ordena para que los que tienen más puntos salgan primero.
+ */
 export function mostrarRanking() {
   let datos = localStorage.getItem(rankingReino);
   let listadoParaVer = [];
