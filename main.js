@@ -270,35 +270,38 @@ async function generarBatallaActual() {
     imgJugador.classList.remove('entradaIzquierda');
     imgEnemigo.classList.remove('entradaDerecha');
 
-    await new Promise(resolve => requestAnimationFrame(resolve));
 
-    imgJugador.src = jugador.avatar;
-    document.getElementById("battle-player-name").textContent = jugador.nombre;
-    imgEnemigo.src = rival.imagen;
-    document.getElementById("battle-enemy-name").textContent = rival.nombre;
-
-    imgJugador.classList.add('entradaIzquierda');
-    imgEnemigo.classList.add('entradaDerecha');
+    setTimeout(() => {
+        imgJugador.src = jugador.avatar;
+        document.getElementById("battle-player-name").textContent = jugador.nombre;
+        imgEnemigo.src = rival.imagen;
+        document.getElementById("battle-enemy-name").textContent = rival.nombre;
 
 
-    if (resultadoGandor.ganador === jugador.nombre) {
-        mostraMonedasAnimadas();
-    }
+        imgJugador.classList.add('entradaIzquierda');
+        imgEnemigo.classList.add('entradaDerecha');
 
-    const sgtBatalla = document.getElementById('battle-output');
-    sgtBatalla.innerHTML = `
+        const sgtBatalla = document.getElementById('battle-output');
+        sgtBatalla.innerHTML = `
     <p>Ganador: <strong>${resultadoGandor.ganador}</strong></p>
     <p>Puntos ganados: <strong>${resultadoGandor.puntosGanados}</strong></p>
     `;
 
-    await new Promise(r => setTimeout(r, 800));
 
-    actualizarMonedero();
-    indiceBatlla++;
+        if (resultadoGandor.ganador === jugador.nombre) {
+            mostraMonedasAnimadas();
+        }
 
-    if (indiceBatlla >= listaEnemigos.length) {
-        document.getElementById('btn-next-battle').textContent = "Resultados Finales"
-    }
+        actualizarMonedero();
+        indiceBatlla++;
+
+
+        if (indiceBatlla >= listaEnemigos.length) {
+            document.getElementById('btn-next-battle').textContent = "Resultados Finales"
+        }
+
+    }, 50);
+
 }
 
 document.getElementById('btn-next-battle').addEventListener('click', generarBatallaActual);
