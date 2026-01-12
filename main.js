@@ -174,10 +174,9 @@ function mostrarMercado() {
  * Se fija si ese producto ya lo habíamos metido antes en la cesta.
  * Si ya estaba en la cesta, lo quita (lo borra de la lista y borra 1 solo elemento).
  * Si no estaba, suma el precio de todo lo que ya tenemos para ver si nos alcanza el oro.
- * Si tenemos dinero suficiente, lo guarda en la cesta; si no, nos lanza un aviso de oro insuficiente.
  * Al final, refresca tanto la lista del mercado como los dibujos del inventario de abajo.
  * @param {number} inc - Es la posición (índice) del producto dentro de la lista del mercado.
- * @returns 
+ * @returns - Si tenemos dinero suficiente, lo guarda en la cesta; si no, nos lanza un aviso de oro insuficiente.
  */
 function actualizarCesta(inc) {
     const productSelec = mercadoActual[inc];
