@@ -554,26 +554,35 @@ small {
 }
 
 @media (max-width: 600px) {
-    /* CAMBIO CLAVE: Cambiamos las proporciones para móviles */
+   
     header {
-        height: 8vh; /* Reducimos un poco el header */
+        height: 8vh;
     }
 
     main.juego-main {
-        height: 77vh; /* Ganamos espacio en el área de juego */
-        overflow-y: auto; /* Permitimos scroll SI el contenido no cabe */
+        height: 77vh; 
+        overflow-y: auto; 
         padding: 10px;
     }
 
-    footer {
-        height: 15vh; /* El inventario no necesita tanto espacio en móvil */
+     #enemies-container,
+    #market-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+        justify-items: center;
+        overflow-y: auto;
+        max-height: 50vh;
     }
 
-    /* Ajuste de escena para que el scroll empiece desde arriba */
+    footer {
+        height: 15vh; 
+    }
+
     .scene.active {
         justify-content: flex-start; 
         padding-top: 10px;
-        padding-bottom: 30px; /* Margen extra para que el botón respire */
+        padding-bottom: 30px; 
     }
 
     #formulario-jugador {
@@ -604,7 +613,6 @@ small {
         margin-top: 20px;
     }
 
-    /* Inventario en el footer más compacto */
     .foo-product {
         width: 35px;
         height: 35px;
