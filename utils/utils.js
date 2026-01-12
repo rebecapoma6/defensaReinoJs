@@ -44,7 +44,7 @@ export const EUR = new Intl.NumberFormat('es-ES', {
  * 
  * @param {object} jugador - valida si el jugador esta definido o es null se detiene la funcion
  * @param {number} num - busca el ids con los numeros indicados en el html
- * @returns 
+ * @returns - si no es jugador se para .
  */
 
 export function actualizarFormulario(jugador, num) {
