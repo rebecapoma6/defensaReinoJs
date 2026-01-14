@@ -9,6 +9,26 @@ import { groupBy } from '../utils/utils.js';
 
 
 const rankingReino = "aventuraJS"
+
+
+
+/**
+ * He creado 10 registros de jugadores.
+ */
+const PARTIDAS_POR_DEFECTO=[
+  { nombre: "Sir Galahad", puntuacion: 2500, monedas: 600 },
+    { nombre: "Rey Arturo", puntuacion: 2200, monedas: 800 },
+    { nombre: "Lancelot", puntuacion: 1950, monedas: 450 },
+    { nombre: "Percival", puntuacion: 1800, monedas: 300 },
+    { nombre: "Gawain", puntuacion: 1650, monedas: 250 },
+    { nombre: "Bors", puntuacion: 1400, monedas: 200 },
+    { nombre: "Tristán", puntuacion: 1250, monedas: 150 },
+    { nombre: "Bedivere", puntuacion: 1100, monedas: 100 },
+    { nombre: "Kay", puntuacion: 950, monedas: 80 },
+    { nombre: "Mordred", puntuacion: 500, monedas: 50 }
+]
+
+
 /**
  * Simula una batalla entre un jugador y un enemigo.
  * Si el jugador gana, obtiene puntos según la fuerza del enemigo.
@@ -114,6 +134,24 @@ export function guardarRakingLocalStore(jugador) {
 }
 
 
+
+/**
+ * Intenta leer los datos de 'aventuraJS' del LocalStorage.
+ * Si no hay nada (null), utiliza el texto "[]" como valor por defecto para no romper el programa.
+ * Convierte ese texto en una lista real (Array) de js.
+ * Combina esa lista con los 10 jugadores xdefecto usando el operador spread (...)
+ * Ordena todos los jugadores por puntuación de mayor a menor.
+ * @returns {Array} La lista final de jugadores (reales + porDefecto) ordenada.
+ */
+  export function rankingPorDefecto() {
+    const datosOriginales = JSON.parse(localStorage.getItem(rankingReino) || "[]");
+
+    const listaCompleta = [...datosOriginales,...PARTIDAS_POR_DEFECTO];
+
+    return listaCompleta.sort((a,b)=> b.puntuacion - a.puntuacion);
+  }
+
+
 /**
 * Agrupa jugadores según su puntuación:
 * - "pro" si superan el umbral.
@@ -128,27 +166,14 @@ export function agruparPorNivel(jugadores, umbral = 300) {
 }
 
 /**
- * Enseña la tabla de clasificación (ranking) directamente en la consola del navegador.
- * Va al "baúl" del navegador (localStorage) a buscar los datos de partidas anteriores.
- * Prepara una lista vacía por si es la primera vez que se abre el juego.
- * Si hay datos guardados, los convierte de "texto" a una lista que JS pueda leer.
- * Crea una copia de la lista y la ordena para que los que tienen más puntos salgan primero.
+ * Muestra el ranking por consola.
+ * Usa la función 'rankingPorDefecto' para asegurar que siempre haya datos que ver.
  */
 export function mostrarRanking() {
-  let datos = localStorage.getItem(rankingReino);
-  let listadoParaVer = [];
-
-  if (datos !== null) {
-    listadoParaVer = JSON.parse(datos);
-  }
- 
-  const ordenados = listadoParaVer.slice().sort((a, b) => b.puntuacion - a.puntuacion);
+  const ordenados = rankingPorDefecto();
   console.log('🏆 RANKING FINAL 🏆');
-  if (ordenados.length > 0) {
-    console.table(ordenados);
-  } else {
-    console.log("No hay partidas en el historial.")
-  }
+  console.table(ordenados);
+ 
 }
 
 
