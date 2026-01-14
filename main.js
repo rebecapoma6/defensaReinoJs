@@ -1,7 +1,7 @@
 import { Jugador } from "./modules/jugadores.js";
 import { Enemigo, JefeFinal } from "./modules/enemigos.js";
 import { aplicarDescuentoPorRareza, obtenerRarezasUnicas } from "./modules/mercado.js"
-import { batalla, agruparPorNivel, guardarRakingLocalStore, mostrarRanking } from "./modules/ranking.js";
+import { batalla, agruparPorNivel, guardarRakingLocalStore, mostrarRanking, rankingPorDefecto } from "./modules/ranking.js";
 import { showScene } from "./utils/scene.js";
 import { EUR, actualizarFormulario } from "./utils/utils.js";
 
@@ -360,16 +360,33 @@ function verResultadoFinal() {
 
 
 
+/**
+ * Seleccionamos el cuerpo de la tabla 'ranking-body' que esta en mi index.
+ * Llamamos a 'rankingPorDefecto' del modulo de ranking para obtener la lista mezclada
+ * Crea el HTML de cada fila con el nombre, puntos y dinero
+ * Agrega todo el contenido generado en el cuerpo de la tabla para que se vea.
+ */
+function verTablaRanking() {
+    const tbody = document.getElementById('ranking-body');
+    const datos = rankingPorDefecto();
+
+    tbody.innerHTML = datos.map(d => `
+        <tr>
+            <td>${d.nombre}</td>
+            <td>${d.puntuacion}</td>
+            <td>${EUR.format(d.monedas)}</td>
+        </tr>
+    `).join('');
+}
+
+
 
 /**
  * Escena 8 -Ranking 
  * 
  */
 document.getElementById('btn-show-ranking').addEventListener('click', () => {
-    const tbody = document.getElementById('ranking-body');
-    const datos = JSON.parse(localStorage.getItem("aventuraJS") || "[]");
-    datos.sort((a, b) => b.puntuacion - a.puntuacion);
-    tbody.innerHTML = datos.map(d => `<tr><td>${d.nombre}</td><td>${d.puntuacion}</td><td>${EUR.format(d.monedas)}</td></tr>`).join('');
+   verTablaRanking();
     showScene('scene-8');
 });
 
