@@ -433,9 +433,9 @@ small {
 /* MONEDERO Y ELEMENTOS FIJOS */
 #monedero-contenedor {
     position: fixed;
-    bottom: -2vh;
+    bottom: 1vh;
     left: 2vw;
-    width: 120px;
+    width: 90px;
     z-index: 999;
     animation: moverMonedero 1.7s ease-out forwards;
 }
@@ -450,7 +450,7 @@ small {
     left: 50%;
     transform: translate(-50%, -50%);
     font-weight: bold;
-    font-size: 1.2rem;
+    font-size: 1rem;
 }
 
 /* ANIMACIONES (KEYFRAMES) */
