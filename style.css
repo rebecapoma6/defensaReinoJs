@@ -20,7 +20,7 @@
     height: 20px;
     background: yellow;
     clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
-    animation:  strellas 5s infinite;
+    animation:  strellas 2s steps(3) infinite;;
 }
 
 
@@ -528,13 +528,11 @@ small {
 @keyframes strellas {
     0% {
         
-        transform: rotate(80deg);
+        transform: rotate(0deg);
         
     }
 
-    25% {
-        transform: rotate(180deg);
-    }
+   
 
     50% {
         transform: rotate(360deg);
