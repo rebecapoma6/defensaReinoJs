@@ -107,41 +107,6 @@ footer {
     /* animation: bajarScene 0.8s ease-out forwards; */
 }
 
-.moverMensaje {
-    overflow: hidden;
-    border-right: 3px solid var(--color-gris-tarjeta);
-    white-space: nowrap;
-    width: 0;
-    animation: pMover 2s steps(20) 0.5s forwards,
-        blink 0.8s step-end infinite;
-
-}
-
-
-@keyframes pMover {
-    from {
-        width: 0;
-    }
-
-    to {
-        width: 27ch;
-    }
-}
-
-/* @keyframes bajarScene {
-    from {
-        
-        transform: translateX(100vw);
-        opacity: 0;
-    }
-
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
-} */
-
-
 
 .scene-title {
     position: sticky;
