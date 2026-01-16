@@ -561,12 +561,25 @@ small {
 }
 
 @keyframes strellas {
-  from {
-    transform: rotate(360deg);
-  }
-  to {
-   transform: rotate(720deg);
-  }
+    0% {
+        
+        transform: rotate(80deg);
+        
+    }
+
+    25% {
+        transform: rotate(180deg);
+    }
+
+    50% {
+        transform: rotate(360deg);
+    }
+
+    100% {
+        
+        transform: rotate(720deg);
+        
+    }
 }
 
 
