@@ -4,6 +4,25 @@
     box-sizing: border-box;
 }
 
+#estrella{
+    display: flex;
+    position: fixed;
+    top: 3vh;
+    right: 2vw;
+    width: 5vw;
+    z-index: 999;
+    gap: 5px;
+    
+}
+.estrellada {  
+   
+    width: 20px;
+    height: 20px;
+    background: yellow;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation:  strellas 5s infinite;
+}
+
 
 :root {
 
@@ -22,7 +41,7 @@
     --color-gris-texto: #6b7280;
     --color-fila-cebra: #f9fafb;
 
-    
+
     --color-error: red;
     --color-advertencia: #efaf48;
     --color-mercado-añadido: #FFF9C4;
@@ -85,7 +104,44 @@ footer {
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    /* animation: bajarScene 0.8s ease-out forwards; */
 }
+
+.moverMensaje {
+    overflow: hidden;
+    border-right: 3px solid var(--color-gris-tarjeta);
+    white-space: nowrap;
+    width: 0;
+    animation: pMover 2s steps(20) 0.5s forwards,
+        blink 0.8s step-end infinite;
+
+}
+
+
+@keyframes pMover {
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 27ch;
+    }
+}
+
+/* @keyframes bajarScene {
+    from {
+        
+        transform: translateX(100vw);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+} */
+
+
 
 .scene-title {
     position: sticky;
@@ -106,7 +162,7 @@ footer {
     font-family: inherit;
     font-size: 12px;
     margin-top: 10px;
-    
+
 }
 
 small {
@@ -435,9 +491,30 @@ small {
     position: fixed;
     bottom: 1vh;
     left: 2vw;
-    width: 90px;
+    width: 5vw;
     z-index: 999;
     animation: moverMonedero 1.7s ease-out forwards;
+}
+
+#textOculto {
+    position: fixed;
+    background: #6b7280;
+    bottom: -3vh;
+    right: 2vw;
+    width: 5vw;
+    z-index: 999;
+    animation: verTexto 1.2s ease-in-out;
+}
+
+#textOculto p {
+    color: #e5e7eb;
+    
+
+}
+
+#textOculto:hover {
+    transform: scale(1.2);
+    bottom: 1vh;
 }
 
 #monedero-contenedor img {
@@ -481,6 +558,29 @@ small {
         transform: rotateY(720deg);
         opacity: 0;
     }
+}
+
+@keyframes strellas {
+  from {
+    transform: rotateY(-360deg);
+  }
+  to {
+   transform: rotateY(-720deg);
+  }
+}
+
+
+@keyframes verTexto {
+    from {
+        transform: translateY(50vh);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(vh);
+        opacity: 1;
+    }
+
 }
 
 @keyframes irAlaIzquierda {
@@ -547,25 +647,28 @@ small {
         gap: 15px;
     }
 
-    .avataR, .enemy-card img, .player-img, .enemy-img {
+    .avataR,
+    .enemy-card img,
+    .player-img,
+    .enemy-img {
         width: 100px;
         height: 140px;
     }
 }
 
 @media (max-width: 600px) {
-   
+
     header {
         height: 8vh;
     }
 
     main.juego-main {
-        height: 77vh; 
-        overflow-y: auto; 
+        height: 77vh;
+        overflow-y: auto;
         padding: 10px;
     }
 
-     #enemies-container,
+    #enemies-container,
     #market-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -576,13 +679,13 @@ small {
     }
 
     footer {
-        height: 15vh; 
+        height: 15vh;
     }
 
     .scene.active {
-        justify-content: flex-start; 
+        justify-content: flex-start;
         padding-top: 10px;
-        padding-bottom: 30px; 
+        padding-bottom: 30px;
     }
 
     #formulario-jugador {
@@ -601,7 +704,8 @@ small {
         gap: 10px;
     }
 
-    .scene-title, h2 {
+    .scene-title,
+    h2 {
         font-size: 18px;
         text-align: center;
     }
